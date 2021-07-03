@@ -24,7 +24,9 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.metrics import fbeta_score, classification_report
+from sklearn.metrics import make_scorer, accuracy_score, f1_score, fbeta_score, classification_report
+from sklearn.model_selection import GridSearchCV
+from scipy.stats import hmean
 from scipy.stats.mstats import gmean
 
 nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger'])
@@ -105,9 +107,17 @@ def build_model():
     Build a ML model through an appropriate NLP pipeline
     
     Returs:
-    model (obj): ML Pipeline that process text messages with the best well-known NLP practice and apply a classifier.
+    mdl (obj): ML Pipeline that process text messages with the best well-known NLP practice and apply a classifier.
     """
-    model = Pipeline([
+    parameters = {
+    'features__text_pipeline__vect__ngram_range': ((1, 1), (1, 2)),
+    'features__text_pipeline__vect__max_df': (0.75, 1.0),
+    'features__text_pipeline__vect__max_features': (None, 5000),
+    'features__text_pipeline__tfidf__use_idf': (True, False),
+    }
+
+
+    pipeline = Pipeline([
         ('features', FeatureUnion([
 
             ('text_pipeline', Pipeline([
@@ -121,7 +131,9 @@ def build_model():
         ('clf', MultiOutputClassifier(AdaBoostClassifier()))
     ])
 
-    return model
+    mdl = GridSearchCV(pipeline, param_grid=parameters,verbose = 2, n_jobs = -1)
+    
+    return mdl
 
 def multioutput_f_score(y_true,y_pred,beta=1):
     """
@@ -174,6 +186,12 @@ def evaluate_model(model, X_test, Y_test, categories_names):
     print('Average total accuracy {0:.2f}% \n'.format(avg_accuracy*100))
     print('F1_score (custom performance metric) {0:.2f}%\n'.format(multioutput_f1*100))
 
+    Y_pred_pd = pd.DataFrame(Y_pred, columns = Y_test.columns)
+    for column in Y_test.columns:
+        print('------------------------------------------------------\n')
+        print('Model performance for the category: {}\n'.format(column))
+        print(classification_report(Y_test[column],Y_pred_pd[column]))
+    
     pass
 
 
