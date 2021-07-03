@@ -17,17 +17,17 @@
 
 This Project is a part of Data Science Nanodegree Program by Udacity in collaboration with Figure Eight.
 The initial data set contains real pre-labelled tweets and messages that were sent during disaster events. 
-we aim to build a machine learning Natural Language Processing tool to categorize these events so that you 
+We aim to build a machine learning Natural Language Processing tool to categorize these events so that you 
 can send the messages to an appropriate disaster relief agency.
 
 
 The Project is divided in the following Sections:
 
-1. Data Processin: An ETL Pipeline to extract data from source (.csv files with messages and categories), clean and preprocess the data
+1. Data Processing: An ETL Pipeline to extract data from a source (.csv files with messages and categories), clean and preprocess the data
    and save them in a proper SQL database structure.
-2. Machine Learning Pipeline: An ML pipeline to train a model capable of classifing text messages into categories.
+2. Machine Learning Pipeline: An ML pipeline to train a model capable of classifing disaster text messages into categories.
 3. Web App: A web app where an emergency worker could submit a new message and get classification results in several categories. 
-   The web app also displays cool visualizations of the data. and represents the model results in real time. 
+   The web app also displays cool visualizations of the data, and represents the model results in real time. 
 
 <a name="getting_started"></a>
 ## Getting Started
@@ -98,7 +98,7 @@ python -m pip install -r requirements.txt
 <a name="images"></a>
 ## Images
 
-1. This is an message example that a user can submit to test the performance of the trained Machine Learning model 
+1. This is a message example that a user can submit to test the performance of the trained Machine Learning model 
 
 ![Message Example](images/example_message_input.png)
 
