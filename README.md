@@ -16,7 +16,7 @@
 ## Description
 
 This Project is a part of Data Science Nanodegree Program by Udacity in collaboration with Figure Eight.
-The initial data set contains real pre-labelled tweet and messages that were sent during disaster events. 
+The initial data set contains real pre-labelled tweets and messages that were sent during disaster events. 
 we aim to build a machine learning Natural Language Processing tool to categorize these events so that you 
 can send the messages to an appropriate disaster relief agency.
 
